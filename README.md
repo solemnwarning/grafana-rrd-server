@@ -102,6 +102,8 @@ systemctl enable grafana-rrd-server
 systemctl start grafana-rrd-server
 ```
 
+For FreeBSD systems, an [example rc.d script](grafana-rrd-server.rc) is provided.
+
 5. Setup Grafana and Simple JSON Datastore plugin.
 
    See [Grafana documentation](http://docs.grafana.org/)

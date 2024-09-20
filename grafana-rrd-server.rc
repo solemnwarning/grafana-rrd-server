@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# PROVIDE: grafana-rrd-server
+# REQUIRE: DAEMON
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# grafana_rrd_server_enable (bool):       Set to YES to enable the service.
+#                                         Default: NO
+# grafana_rrd_server_directory (string):  Set to the path of the RRD files.
+#                                         Default: ""
+# grafana_rrd_server_port (number):       Set to change server port number.
+#                                         Default: 9000
+
+. /etc/rc.subr
+
+name="grafana_rrd_server"
+rcvar="${name}_enable"
+
+load_rc_config "$name"
+
+: ${grafana_rrd_server_enable:="NO"}
+: ${grafana_rrd_server_directory:=""}
+: ${grafana_rrd_server_port:="9000"}
+
+pidfile="/var/run/grafana-rrd-server.pid"
+command="/usr/sbin/daemon"
+procname="/usr/local/bin/grafana-rrd-server"
+command_args="-S -p ${pidfile} ${procname} -p ${grafana_rrd_server_port} -r ${grafana_rrd_server_directory}"
+
+run_rc_command "$1"
