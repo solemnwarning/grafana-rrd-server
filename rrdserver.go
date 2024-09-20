@@ -197,11 +197,9 @@ func search(w http.ResponseWriter, r *http.Request) {
 
 	var result = []string{}
 
-	if target != "" {
-		for _, path := range searchCache.Get() {
-			if strings.Contains(path, target) {
-				result = append(result, path)
-			}
+	for _, path := range searchCache.Get() {
+		if strings.Contains(path, target) {
+			result = append(result, path)
 		}
 	}
 
